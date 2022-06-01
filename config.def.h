@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 5;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
@@ -110,7 +110,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_F5,     xrdb,           {.v = NULL } },
 	{ MODKEY,                       XK_u,      setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_i,  		 setgaps,        {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+	{ MODKEY|ShiftMask,             XK_ß,      setgaps,        {.i = 0  } },
+  { MODKEY|ShiftMask,             XK_u, 		 setborderpx,    {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_i, 		 setborderpx,    {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_ß, 	   setborderpx,    {.i = 0 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
