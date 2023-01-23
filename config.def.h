@@ -1,21 +1,23 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "DejaVu Sans Mono:size=14" };
 static const char dmenufont[]       = "DejaVu Sans Mono:size=14";
-static const char col_gray1[]       = "#282828";
-static const char col_gray2[]       = "#504945";
-static const char col_gray3[]       = "#bdae93";
-static const char col_gray4[]       = "#ebdbb2";
-static const char col_cyan[]        = "#cc241d";
+static const char col_gray1[]       = "#1d2021";
+static const char col_gray2[]       = "#3c3836";
+static const char col_gray3[]       = "#665c54";
+static const char col_gray4[]       = "#bdae93";
+static const char col_gray5[]       = "#fbf1c7";
+static const char col_red[]         = "#cc241d";
+static const char col_orange[]      = "#d65d0e";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_gray2,  col_gray1  },
+	[SchemeNorm] = { col_gray4, col_gray1, col_gray1 },
+	[SchemeSel]  = { col_gray5, col_gray3,  col_gray2  },
 };
 
 /* tagging */
@@ -54,10 +56,11 @@ static const Layout layouts[] = {
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define STATUSBAR "dwmblocks"
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_orange, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 
 #include "movestack.c"
@@ -108,8 +111,12 @@ static const Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
-	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
+	
+	{ ClkStatusText,        0,              Button1,        sigstatusbar,   {.i = 1} },
+	{ ClkStatusText,        0,              Button2,        sigstatusbar,   {.i = 2} },
+	{ ClkStatusText,        0,              Button3,        sigstatusbar,   {.i = 3} },
+
+  { ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
 	{ ClkTagBar,            0,              Button1,        view,           {0} },
